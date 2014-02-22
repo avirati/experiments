@@ -1,0 +1,265 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DgT's Node Works</title>
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="./Chess.js"></script>
+	<script src="./chessboard.js"></script>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Project name</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active">
+                <a href="#">Home</a>
+              </li>
+              <li>
+                <a href="">About</a>
+              </li>
+              <li>
+                <a href="">Contact</a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">Action</a>
+                  </li>
+                  <li>
+                    <a href="#">Another action</a>
+                  </li>
+                  <li>
+                    <a href="#">Something else here</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Nav header</li>
+                  <li>
+                    <a href="#">Separated link</a>
+                  </li>
+                  <li>
+                    <a href="#">One more separated link</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <form class="navbar-form pull-right">
+              <input class="span2" type="text" placeholder="Email">
+              <input class="span2" type="password" placeholder="Password">
+              <button type="submit" class="btn">Sign in</button>
+            </form>
+          </div>
+          <!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container" id="welcomeDiv">
+	    <div class="hero-unit">
+	    	<div class="row-fluid">
+	    		<div class="span3">
+        			<button class="btn btn-success btn-large span12" id="startHosting">Host</button>
+        		</div>
+        		<div class="span6">
+        			<h1>Chess Mania by DgT</h1>
+        		</div>
+        		<div class="span3">
+		        	<div class="span6">
+		        		<input type="text" class="input input-large span12" id="roomIdToJoin" />
+		        	</div>
+		        	<div class="span6">
+		        		<button class="btn btn-success btn-large span12" id="joinHostedGame">Join</button>
+		        	</div>
+	        	</div>
+        	</div>
+	    	</div>
+	      
+	    </div>
+    </div>
+    <center>
+    	<div id="chessGame">
+    		<h5 id="roomId"></h5>
+    		<div id="board" style="width: 550px"></div>
+    	</div>
+    </center>
+    <!-- /container -->
+
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    		$('#board').hide();
+    	});
+    </script>
+
+    <script type="text/javascript">
+	var board,
+  game = new Chess(),
+  statusEl = $('#status'),
+  fenEl = $('#fen'),
+  pgnEl = $('#pgn'),
+  currentRoomID;
+
+// do not pick up pieces if the game is over
+// only pick up pieces for the side to move
+var onDragStart = function(source, piece, position, orientation) {
+  if (game.game_over() === true ||
+      (game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+      (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+    return false;
+  }
+};
+
+var onDrop = function(source, target) {
+  // see if the move is legal
+  var move = game.move({
+    from: source,
+    to: target,
+    promotion: 'q' // NOTE: always promote to a pawn for example simplicity
+  });
+
+  // illegal move
+  if (move === null) return 'snapback';
+
+  updateStatus();
+};
+
+// update the board position after the piece snap 
+// for castling, en passant, pawn promotion
+var onSnapEnd = function() {
+  iosocket.emit('boardPosition',{'roomId':currentRoomID,'fen':game.fen()});
+  board.position(game.fen());
+};
+
+var updateStatus = function() {
+  var status = '';
+
+  var moveColor = 'White';
+  if (game.turn() === 'b') {
+    moveColor = 'Black';
+  }
+  console.log(moveColor+"'s TURN :)")
+  // checkmate?
+  if (game.in_checkmate() === true) {
+    status = 'Game over, ' + moveColor + ' is in checkmate.';
+  }
+
+  // draw?
+  else if (game.in_draw() === true) {
+    status = 'Game over, drawn position';
+  }
+
+  // game still on
+  else {
+    status = moveColor + ' to move';
+
+    // check?
+    if (game.in_check() === true) {
+      status += ', ' + moveColor + ' is in check';
+    }
+  }
+
+  statusEl.html(status);
+  fenEl.html(game.fen());
+  pgnEl.html(game.pgn());
+};
+
+var cfg = {
+  draggable: true,
+  position: 'start',
+  onDragStart: onDragStart,
+  onDrop: onDrop,
+  onSnapEnd: onSnapEnd
+};
+board = new ChessBoard('board', cfg);
+
+updateStatus();
+
+var iosocket;
+
+$('#startHosting').click(function ()
+{
+  $('#welcomeDiv').hide();
+  $('#board').show();
+
+  iosocket = io.connect();
+            iosocket.on('connect', function () {
+                
+                iosocket.emit('initiateGameHosting','HI I JUST CONNECTED');
+                
+                iosocket.on('initiateGameHosting', function(roomId){
+                	currentRoomID=roomId;
+                	$('#roomId').html(currentRoomID);
+                });
+
+                iosocket.on('disconnect', function() {
+                    $('#gameStat').html('Disconnected');
+                });
+                
+                iosocket.on('boardPosition', function(boardPosition) {
+                    console.log(boardPosition);
+                    //Update positions
+                    board.position(boardPosition);
+                    game.load(boardPosition);
+                });
+            });
+});
+
+$('#joinHostedGame').click(function(){
+	var temp=$('#roomIdToJoin').val();
+
+	$('#welcomeDiv').hide();
+ 	$('#board').show();
+
+  iosocket = io.connect();
+            iosocket.on('connect', function () {
+                
+                iosocket.emit('joinGameHosting',temp);
+                
+                iosocket.on('joinGameHosting', function(status){
+                	console.log(status);
+                	currentRoomID=temp;
+                });
+
+                iosocket.on('disconnect', function() {
+                    $('#gameStat').html('Disconnected');
+                });
+                
+                iosocket.on('boardPosition', function(boardPosition) {
+                    console.log(boardPosition);
+                    //Update positions
+                    board.position(boardPosition);
+                    game.load(boardPosition);
+                });
+            });
+});
+
+</script>
+
+  </body>
+</html>
