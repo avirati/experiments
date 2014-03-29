@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+</head>
+<body style="padding:40px">
+  <div class="container-fluid">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+   <div class="carousel slide" id="home-carousel">
+<div class="carousel-inner">
+<div class="item active">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">Node.js</h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <ul>
+          <li><h2>History</h2></li>
+          <li><h2>Node as a CLI</h2></li>
+          <li><h2>The V8 engine !!</h2></li>
+          <li><h2>Event Queue and Non Blocking Nature</h2></li>
+        </ul>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">Node.js - Which projects can make good use of it ?</h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <ul>
+          <li><h2>Chat applications</h2></li>
+          <li><h2>Slate sharing</h2></li>
+          <li><h2>Collaborative Document Editing</h2></li>
+          <li><h2>Realtime Multiplayer Games</h2></li>
+          <li><h2>Realtime Charting Applications - Stock Visualizer</h2></li>
+          <li><h2>Maybe your next project ? :)</h2></li>
+        </ul>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">Node.js - Which projects will suffer ?</h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <ul>
+          <li><h2>Any application which is based on heavy calculations</h2></li>
+        </ul>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">Node.js - getting down to business</h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <ul>
+          <li><h2>Implement your own server</h2></li>
+        </ul>
+        <div style="padding:30px;">
+          <h4>var http=require('http'),<br>
+            &nbsp;&nbsp;fs=require('fs');
+            <br><br>
+
+          var server = http.createServer(function(req, res) {<br>
+            &nbsp;&nbsp;console.log(req.url);<br>
+            &nbsp;&nbsp;res.writeHead(200, { 'Content-type': 'text/html'});<br>
+            &nbsp;&nbsp;res.end(fs.readFileSync(__dirname + /*homepage*/req.url));<br>
+          }).listen(8080, function() {<br>
+            &nbsp;&nbsp;console.log('Listening at: http://localhost:8080');<br>
+          });</h4>
+        </div>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">Node.js - MVCs</h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <ul>
+          <li><h2>Express.js</h2></li>
+          <li><h2>Sails.js</h2></li>
+          <li><h2>Meteor.js</h2></li>
+        </ul>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">Node.js - npm (Plug and Play !!)</h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <ul>
+          <li><h2>Search Projects</h2></li>
+          <li><h2>Plug into your project</h2></li>
+          <li><h2>Walla !!</h2></li>
+        </ul>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">Node.js - npm (Giving back to Community)</h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <ul>
+          <li><h2>Create projects</h2></li>
+          <li><h2>Add Dependecies</h2></li>
+          <li><h2>Publish !!</h2></li>
+          <li><h2>Let the word out !!</h2></li>
+        </ul>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">Node.js - powering this application (How ?)</h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <ul>
+          <li><h2>Bootstrap Carousel for Transitions</h2></li>
+          <li><h2>html2canvas to capture element</h2></li>
+          <li><h2>socket.io to post the image to a node server</h2></li>
+          <li><h2>node.js to recieve data and broadcast to peer sockets</h2></li>
+          <li><h2>socket.io to listen for upcoming data</h2></li>
+        </ul>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">My Application - where it goes for a toss ?</h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <ul>
+          <li><h2>Node can NOT handle large data</h2></li>
+        </ul>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">My Application - Scope for improvement</h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <ul>
+          <li><h2>Let the clients have a template which loads data from a 3rd place</h2></li>
+          <li><h2>Better - Serve only small data-sets</h2></li>
+          <li><h2>Best - WebRTC (works for p2p)</h2></li>
+        </ul>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">Questions </h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <center><h1 style="font-size:370px;margin-top:200px;">?</h1></center>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+
+<div class="item">
+
+  <div class="row-fluid">
+    <div class="span12">
+      <h1 class="header-unit">Thank You !! </h1>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+      <div class="span2"></div>
+      <div class="well span8" style="padding:40px; min-height:500px;">
+        <center><h4>You guys Rock !!</h4></center>
+        <center><h1 style="font-size:370px;margin-top:200px;">\m/</h1></center>
+      </div>
+      <div class="span2"></div>
+  </div>
+
+</div>
+
+</div><!-- .carousel-inner -->
+ <a class="carousel-control left" href="#home-carousel" data-slide="prev">&lsaquo;</a>
+      <a class="carousel-control right" href="#home-carousel" data-slide="next">&rsaquo;</a>
+</div><!-- .carousel -->
+
+    </div> <!-- /container -->
+    <img id="screenshot">
+</body>
+<script type='text/javascript' src='http://code.jquery.com/jquery-1.9.1.js'></script>    
+<script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script type='text/javascript'>//<![CDATA[ 
+    $(document).ready(function(){
+      $('.carousel').carousel({interval:0});
+    });
+
+    iosocket = io.connect();
+    iosocket.on('connect', function () {
+        
+        iosocket.on('screen', function(data) {
+            console.log(data);
+            document.getElementById('screenshot').src=data;
+        });
+
+        /*var w=new Worker('worker.js');
+        w.postMessage('start');
+
+        w.onmessage=function(event){
+            html2canvas(document.body, {
+                onrendered:function(canvas){
+                    //send image
+                    iosocket.emit('screen', canvas.toDataURL());
+                }
+            });
+        };*/
+
+        $('a').click(function(){
+            for(var i=0;i<5;i++)
+            {
+            html2canvas(document.body, {
+                onrendered:function(canvas){
+                    //send image
+                    iosocket.emit('screen', canvas.toDataURL());
+                }
+            });
+          }
+        });
+    });
+
+</script>
+</html>

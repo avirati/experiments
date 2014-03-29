@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body style="padding:40px">
+    <img id="screenshot">
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script type='text/javascript'>//<![CDATA[ 
+    
+    var iosocket = io.connect();
+    iosocket.on('connect', function () {
+        
+        iosocket.on('screen', function(data) {
+            console.log(data);
+            document.getElementById('screenshot').src=data;
+        });
+    });
+
+</script>
+</html>
